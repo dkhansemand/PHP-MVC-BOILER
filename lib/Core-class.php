@@ -38,12 +38,6 @@ abstract class Core
 
     public static function CanLoadModel(string $model) : bool
     {
-        if(file_exists( __ROOT__ . DS  . 'models' . DS . $model . '.model.php')){
-            return true;
-		} else {
-            throw new Exception('ERROR: '. __ROOT__ . DS . 'models' . DS .  $model . '.model.php');
-            return false;
-        }
-        return false;
+        return (file_exists( __ROOT__ . DS  . 'models' . DS . $model . '.model.php'));
     }
 }
