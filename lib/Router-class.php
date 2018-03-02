@@ -40,7 +40,7 @@ class Router extends Core
     public static function Redirect(string $location) : void
     {
         ob_start();
-        header('Location:' . self::$BASE . $location);
+        header('Location:' . rtrim(self::$BASE, '/') . $location);
         exit;
     }
 
@@ -83,7 +83,6 @@ class Router extends Core
                                     self::$params[] = $URLparams[$ParamCnt];
                                 }
                             }
-
                         }
                         else
                         {
@@ -122,17 +121,26 @@ class Router extends Core
             }
             else
             {
-               
+                if(defined('DEFAULT_ROUTE'))
+                {
+                    foreach(self::$Routes as $route)
+                    {
+                        if(DEFAULT_ROUTE === $route['path'])
+                        {
+                            self::Redirect($route['path']);
+                        }
+                    }
+                }
+
                 if(file_exists(__ROOT__ . DS . 'views' . DS .'ErrorPages' . DS . '404.view.php'))
                 {
-                    self::Redirect('Error/404');
+                    self::Redirect('/Error/404');
                 }
                 else
                 {
                     header("HTTP/1.0 404 Not Found");
                     exit;
                 }
-                
             }
 
             if(@__DEBUG__ === true)

@@ -1,5 +1,6 @@
 <?php
 
+const DEFAULT_ROUTE = '/Home';
 const ROUTES = array(
     [
         'path' => '/Home',
