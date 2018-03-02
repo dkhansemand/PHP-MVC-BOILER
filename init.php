@@ -21,8 +21,11 @@
 		} else {
 			throw new Exception('ERROR: '. __DIR__ . DS . 'lib' . DS .  $className . '-class.php');
 		}
-	});
-
+    });
+    
+    if(@__DEBUG__ === true){
+        Debug::Start();
+    }
         
     $GET  = Filter::CheckMethod('GET')  ? Filter::SanitizeArray(INPUT_GET)  : null;
     $POST = Filter::CheckMethod('POST') ? Filter::SanitizeArray(INPUT_POST) : null;

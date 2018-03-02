@@ -22,5 +22,12 @@
             View::Render();
         ?>
     </section>
+    <hr>
+    <section>
+    <?php
+        Debug::End();
+        echo Debug::toString();
+    ?>
+    </section>
 </body>
 </html>
