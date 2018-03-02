@@ -10,8 +10,8 @@ abstract class Core
     {
         $controller = ucfirst($controller);
         $controllerName = str_replace('\\', '/', $controller);
-		if(file_exists( dirname(__DIR__) . DS  . 'controllers' . DS . $controllerName . '.Controller.php')){
-            require_once dirname(__DIR__)  . DS . 'controllers'. DS . $controllerName . '.Controller.php';
+		if(file_exists( __ROOT__ . DS  . 'controllers' . DS . $controllerName . '.Controller.php')){
+            require_once __ROOT__  . DS . 'controllers'. DS . $controllerName . '.Controller.php';
             if(class_exists($controller.'Controller'))
             {
                 $controllerName = $controller.'Controller';
@@ -19,7 +19,7 @@ abstract class Core
                 return (self::$Controller instanceof $controllerName);
             }
 		} else {
-            throw new Exception('ERROR: '. __DIR__ . DS . 'controllers' . DS .  $controllerName . '.Controller.php');
+            throw new Exception('ERROR: '. __ROOT__ . DS . 'controllers' . DS .  $controllerName . '.Controller.php');
             return false;
         }
     }
@@ -33,7 +33,6 @@ abstract class Core
             throw new Exception('ERROR: '. __ROOT__ . DS . 'views' . DS .  $view);
             return false;
         }
-        
         return false;
     }
 }
