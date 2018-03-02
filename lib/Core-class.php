@@ -35,4 +35,16 @@ abstract class Core
         }
         return false;
     }
+
+    public static function CanLoadModel(string $model) : bool
+    {
+        if(file_exists( __ROOT__ . DS  . 'models' . DS . $model)){
+            self::$model = $model;
+            return true;
+		} else {
+            throw new Exception('ERROR: '. __ROOT__ . DS . 'models' . DS .  $model);
+            return false;
+        }
+        return false;
+    }
 }
