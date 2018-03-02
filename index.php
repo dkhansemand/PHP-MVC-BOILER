@@ -25,8 +25,9 @@
     <hr>
     <section>
     <?php
-        Debug::End();
-        echo Debug::toString();
+        if(@__DEBUG__ === true){
+            echo Debug::ExecuteTime();
+        }
     ?>
     </section>
 </body>
