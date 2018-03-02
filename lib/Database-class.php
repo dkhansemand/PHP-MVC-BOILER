@@ -4,7 +4,7 @@ interface Log {
     public function logError($errCocde, $errLogBy, $errMsg);
 }
 
-abstract class Database extends PDO implements Log{
+class Database extends PDO implements Log{
 
     protected $conn;
     private $connected = false;
