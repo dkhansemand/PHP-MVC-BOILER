@@ -15,8 +15,8 @@ class View extends Core
         if(self::CanLoadModel($model)){
             require_once __ROOT__ . DS  . 'models' . DS . $model . '.model.php';
             $modelClass = $model . 'Model';
-            $modelClass = new $modelClass();
-            self::$DATA = call_user_func([$modelClass, '__construct']);
+            self::$Model = new $modelClass();
+            self::$DATA = call_user_func([self::$Model, '__construct']);
         }
         
         require_once __ROOT__ . DS . 'views' . DS . self::$View;
