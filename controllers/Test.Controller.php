@@ -1,6 +1,6 @@
 <?php
 
-class TestController
+class TestController extends Core
 {
     public function __construct()
     {

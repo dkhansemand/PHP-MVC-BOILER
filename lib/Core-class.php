@@ -2,9 +2,9 @@
 
 abstract class Core
 {
-    public static $Controller = null,
-                  $Model = null,
-                  $View = null;
+    protected static $Controller = null,
+                     $Model      = null,
+                     $View       = null;
     
     protected static function CanLoadController(string $controller) : bool
     {
