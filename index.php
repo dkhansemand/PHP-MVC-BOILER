@@ -10,25 +10,6 @@
     <title>Router | Now with MVC structure</title>
 </head>
 <body>
-<hr>
-    <pre>
-        <?php
-            var_dump($_SERVER['REQUEST_URI']);
-        ?>
-    </pre>
-    <hr>
-    <section>
-        <?php
-            View::Render();
-        ?>
-    </section>
-    <hr>
-    <section>
-    <?php
-        if(@__DEBUG__ === true){
-            echo Debug::ExecuteTime();
-        }
-    ?>
-    </section>
+
 </body>
 </html>
