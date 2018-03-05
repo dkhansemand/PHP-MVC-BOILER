@@ -8,10 +8,10 @@
     define('__ROOT__', __DIR__);
     define('DS', DIRECTORY_SEPARATOR);
 	define('_JWTKEY_', 'Test');
-    //define('_AUTOLOADER_', __DIR__ . DS . 'vendor' . DS . 'autoload.php');
+    define('_AUTOLOADER_', __DIR__ . DS . 'vendor' . DS . 'autoload.php');
 
     session_start();
-    //ob_start();
+    
     ## Auto class loader from folder '/lib'
     ## Class autoloader
     spl_autoload_register(function ($className){
@@ -22,8 +22,6 @@
 			throw new Exception('ERROR: '. __DIR__ . DS . 'lib' . DS .  $className . '-class.php');
 		}
     });
-    
-   
         
     $GET  = Filter::CheckMethod('GET')  ? Filter::SanitizeArray(INPUT_GET)  : null;
     $POST = Filter::CheckMethod('POST') ? Filter::SanitizeArray(INPUT_POST) : null;
@@ -33,5 +31,6 @@
         require_once $configFile;
     }
 
+    //ROUTES is served from router.config file
     Router::Init($_SERVER['REQUEST_URI'], ROUTES);
     
