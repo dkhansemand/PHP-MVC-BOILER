@@ -7,7 +7,8 @@ class Router extends Core
                     $RouteIndex = null,
                     $Routes = null,
                     $controller = null,
-                    $view = null;
+                    $view = null,
+                    $REQ_ROUTE = null;
 
     public static function ValidateRoutes(array $routes, array $keys) : bool
     {
@@ -51,12 +52,12 @@ class Router extends Core
             self::$Routes = $routes;
             $url = Filter::SanitizeURL($url);
             self::$BASE = substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], "index.php"));
-            $REQ_ROUTE = '/'.str_replace(strtolower(self::$BASE), '', strtolower($url));
+            self::$REQ_ROUTE = '/'.str_replace(strtolower(self::$BASE), '', strtolower($url));
             $match = false;
             foreach($routes as $routeIdx => $route)
             {
                 
-                    $newPath = explode('/', rtrim($REQ_ROUTE, '/'));
+                    $newPath = explode('/', rtrim(self::$REQ_ROUTE, '/'));
                     $newPath = array_splice($newPath, 1, count($newPath)-1);
                     $pathCount = count(explode('/', $route['path'])) - 1;
                     $path = null;
@@ -66,7 +67,6 @@ class Router extends Core
                     }
                     if(strtolower($route['path']) === strtolower($path))
                     {
-                        echo '<h2>Path match with params</h2>';
                         $match = true;
                         self::$RouteIndex = $routeIdx;
                         $URLparams = array_slice($newPath, $pCnt, count($newPath));
@@ -96,7 +96,7 @@ class Router extends Core
                 ' | <br>Param count: ',
                     var_dump($pathCount),
                 ' |<br> Path match: ',
-                    var_dump($path),
+                    var_dump(self::$REQ_ROUTE),
                 '<br> | Params: ',
                     var_dump(self::$params)
                 ,'</p>';
@@ -121,7 +121,7 @@ class Router extends Core
             }
             else
             {
-                if(defined('DEFAULT_ROUTE'))
+                if(defined('DEFAULT_ROUTE') && self::$REQ_ROUTE === '/')
                 {
                     foreach(self::$Routes as $route)
                     {
@@ -134,7 +134,7 @@ class Router extends Core
 
                 if(file_exists(__ROOT__ . DS . 'views' . DS .'ErrorPages' . DS . '404.view.php'))
                 {
-                    self::Redirect('/Error/404');
+                   self::Redirect('/Error/404');
                 }
                 else
                 {
