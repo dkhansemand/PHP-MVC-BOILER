@@ -4,7 +4,7 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
     
-    define('__DEBUG__', false);
+    define('__DEBUG__', true);
     define('__ROOT__', __DIR__);
     define('DS', DIRECTORY_SEPARATOR);
 	define('_JWTKEY_', 'Test');

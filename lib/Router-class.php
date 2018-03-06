@@ -146,7 +146,7 @@ class Router extends Core
             if(@__DEBUG__ === true)
             {
                 echo 'BASE: <pre>',var_dump(self::$BASE), '</pre>';
-                echo 'REQ_ROUTE<pre>',var_dump($REQ_ROUTE), '</pre>';
+                echo 'REQ_ROUTE<pre>',var_dump(self::$REQ_ROUTE), '</pre>';
                 echo 'Routes: <pre>',var_dump($routes), '</pre>';
                 echo 'Controller: <pre>',var_dump(self::$Controller), '</pre>';
                 echo 'View: <pre>',var_dump(self::$View), '</pre>';
