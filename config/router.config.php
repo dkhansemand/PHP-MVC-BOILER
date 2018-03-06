@@ -5,10 +5,7 @@ const ROUTES = array(
                     [
                         'path' => '/Home',
                         'controller' => 'Home',
-                        'view' => 'Home.view.php',
-                        'permissions' => [
-                                            Permission::PERM_ADMIN_PANEL_ACCESS
-                                         ]
+                        'view' => 'Home.view.php'
                     ],
                     [
                         'path' => '/Test/Tester',
@@ -24,7 +21,11 @@ const ROUTES = array(
                         'controller' => 'Test',
                         'params' => ['Now', 'More'],
                         'view' => 'Test.view.php',
-                        'guard' => ''
+                        'permissions' => []
+                    ],
+                    [
+                        'path' => '/Login',
+                        'view' => 'login.view.php'
                     ],
                     [
                         'path' => '/Error',
