@@ -8,7 +8,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'Setu
         echo 'Database connection established! <br>';
         if(Setup::CheckTables(['users', 'roles', 'userroles', 'roletypes']))
         {
-            echo 'User table structure exsists! It should be good to go! <br> <a href="../">Go to project index</a>';
+            echo 'User table structure exists! It should be good to go! <br> <a href="../">Go to project index</a>';
         }else{
             echo 'User table structure not found! Creating structure... <br>';
             if(Setup::CreateUserTableStructure()
