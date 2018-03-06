@@ -26,6 +26,8 @@
         (new Guard)->Authenticate($userData);
        // var_dump(User::GetUserPermissions(2));
        var_dump($_SESSION);
+
+       View::Render();
        ?>
    </pre>
    

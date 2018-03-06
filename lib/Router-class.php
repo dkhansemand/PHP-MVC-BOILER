@@ -54,42 +54,41 @@ class Router extends Core
             self::$BASE = substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], "index.php"));
             self::$REQ_ROUTE = '/'.str_replace(strtolower(self::$BASE), '', strtolower($url));
             $match = false;
+            $newPath = explode('/', rtrim(self::$REQ_ROUTE, '/'));
+            $newPath = array_splice($newPath, 1, count($newPath)-1);
             foreach($routes as $routeIdx => $route)
             {
-                
-                    $newPath = explode('/', rtrim(self::$REQ_ROUTE, '/'));
-                    $newPath = array_splice($newPath, 1, count($newPath)-1);
-                    $pathCount = count(explode('/', $route['path'])) - 1;
-                    $path = null;
-                    for($pCnt = 0; $pCnt < $pathCount; $pCnt++)
+                $pathCount = count(explode('/', $route['path'])) - 1;
+                $path = null;
+                for($pCnt = 0; $pCnt < $pathCount; $pCnt++)
+                {
+                    $path .= '/'.$newPath[$pCnt];
+                }
+                if(strtolower($route['path']) === strtolower($path))
+                {
+                    $match = true;
+                    self::$RouteIndex = $routeIdx;
+                    $URLparams = array_slice($newPath, $pCnt, count($newPath));
+                    if(array_key_exists('params', $route) && sizeof($route['params']) > 0)
                     {
-                        $path .= '/'.$newPath[$pCnt];
-                    }
-                    if(strtolower($route['path']) === strtolower($path))
-                    {
-                        $match = true;
-                        self::$RouteIndex = $routeIdx;
-                        $URLparams = array_slice($newPath, $pCnt, count($newPath));
-                        if(array_key_exists('params', $route) && sizeof($route['params']) > 0)
+                        for($ParamCnt = 0; $ParamCnt < count($URLparams); $ParamCnt++)
                         {
-                            for($ParamCnt = 0; $ParamCnt < count($URLparams); $ParamCnt++)
+                            if(isset($route['params'][$ParamCnt]))
                             {
-                                if(isset($route['params'][$ParamCnt]))
-                                {
-                                    self::$params[$route['params'][$ParamCnt]] = $URLparams[$ParamCnt];
-                                }
-                                else
-                                {
-                                    self::$params[] = $URLparams[$ParamCnt];
-                                }
+                                self::$params[$route['params'][$ParamCnt]] = $URLparams[$ParamCnt];
+                            }
+                            else
+                            {
+                                self::$params[] = $URLparams[$ParamCnt];
                             }
                         }
-                        else
-                        {
-                            self::$params = $URLparams;
-                        }
-                        break;
                     }
+                    else
+                    {
+                        self::$params = $URLparams;
+                    }
+                    break;
+                }
                 
             }
             echo '<p>New Path: ',var_dump($newPath), 

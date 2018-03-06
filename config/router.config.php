@@ -7,14 +7,22 @@ const ROUTES = array(
                         'controller' => 'Home',
                         'view' => 'Home.view.php',
                         'permissions' => [
-                            Permission::PERM_ADMIN_PANEL_ACCESS
-                        ]
-                         
+                                            Permission::PERM_ADMIN_PANEL_ACCESS
+                                         ]
                     ],
                     [
                         'path' => '/Test/Tester',
                         'controller' => 'Test',
                         'params' => ['ID', 'More'],
+                        'view' => 'Test.view.php',
+                        'permissions' => [
+                                            Permission::PERM_ADMIN_UPDATE_USER
+                                         ]
+                    ],
+                    [
+                        'path' => '/Test/Now',
+                        'controller' => 'Test',
+                        'params' => ['Now', 'More'],
                         'view' => 'Test.view.php',
                         'guard' => ''
                     ],
