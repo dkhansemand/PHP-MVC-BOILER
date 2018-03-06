@@ -3,7 +3,7 @@ require_once _AUTOLOADER_;
 use \Firebase\JWT\JWT;
 class Guard extends JWT
 {
-   
+    private static $Permissions =  [];
     public function Authenticate(stdClass $userData)
     {
         
@@ -21,11 +21,10 @@ class Guard extends JWT
         
     }
 
-    public function __construct(int $requiredLvl = 0)
+    public function __construct()
     {
         try
         {
-            
             if(!array_key_exists('global', $_SESSION))
             {
                 $_SESSION['global'] = null;
@@ -37,27 +36,28 @@ class Guard extends JWT
         }
     }
 
-    public function Protect()
+    public function Protect(array $permissions)
     {
-        try{
+        try
+        {
             if(!isset($_SESSION['global']))
             {
-                //Router::Redirect('/Login');
+                Router::Redirect('/Login');
                 return false;
             }
-            
+            self::$Permissions = $permissions;
         }
         catch(Exception $err)
         {
             session_destroy();
-            
             exit;
         }
     }
 
     public function decoding($Session)
     {
-        try{
+        try
+        {
             return JWT::decode($Session, _JWTKEY_, array('HS256'));
         }
         catch(Exception $err)

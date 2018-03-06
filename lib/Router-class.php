@@ -118,6 +118,11 @@ class Router extends Core
                         throw new Exception("Cannot load view '".self::$Routes[self::$RouteIndex]['controller']."'");
                     }
                 }
+
+                if(array_key_exists('permissions', self::$Routes[self::$RouteIndex]))
+                {
+                    (new Guard)->Protect(self::$Routes[self::$RouteIndex]['permissions']);
+                }
             }
             else
             {

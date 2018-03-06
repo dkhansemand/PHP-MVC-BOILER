@@ -6,7 +6,10 @@ const ROUTES = array(
                         'path' => '/Home',
                         'controller' => 'Home',
                         'view' => 'Home.view.php',
-                        'guard' => ''
+                        'permissions' => [
+                            Permission::PERM_ADMIN_PANEL_ACCESS
+                        ]
+                         
                     ],
                     [
                         'path' => '/Test/Tester',
