@@ -67,6 +67,7 @@ class Router extends Core
                 if(strtolower($route['path']) === strtolower($path))
                 {
                     $match = true;
+                    //echo '<pre>',var_dump($route),'</pre>';
                     self::$RouteIndex = $routeIdx;
                     $URLparams = array_slice($newPath, $pCnt, count($newPath));
                     if(array_key_exists('params', $route) && sizeof($route['params']) > 0)
@@ -87,7 +88,7 @@ class Router extends Core
                     {
                         self::$params = $URLparams;
                     }
-                    break;
+                    
                 }
                 
             }

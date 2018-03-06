@@ -8,6 +8,14 @@ const ROUTES = array(
                         'view' => 'Home.view.php'
                     ],
                     [
+                        'path' => '/Test',
+                        'controller' => 'Test',
+                        'params' => ['Now', 'More'],
+                        'view' => 'home.view.php',
+                        'permissions' => []
+                    ],
+                    
+                    [
                         'path' => '/Test/Tester',
                         'controller' => 'Test',
                         'params' => ['ID', 'More'],
@@ -17,11 +25,13 @@ const ROUTES = array(
                                          ]
                     ],
                     [
-                        'path' => '/Test/Now',
+                        'path' => '/Test/Login',
                         'controller' => 'Test',
-                        'params' => ['Now', 'More'],
-                        'view' => 'Test.view.php',
-                        'permissions' => []
+                        'params' => ['ID', 'More'],
+                        'view' => 'login.view.php',
+                        'permissions' => [
+                                            Permission::PERM_ADMIN_UPDATE_USER
+                                         ]
                     ],
                     [
                         'path' => '/Login',
