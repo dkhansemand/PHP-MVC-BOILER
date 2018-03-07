@@ -5,6 +5,7 @@ class Router extends Core
     private static  $BASE = null,
                     $params = [],
                     $RouteIndex = null,
+                    $RouteIndexes = null,
                     $Routes = null,
                     $controller = null,
                     $view = null,
@@ -53,34 +54,50 @@ class Router extends Core
             $url = Filter::SanitizeURL($url);
             self::$BASE = substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], "index.php"));
             self::$REQ_ROUTE = '/'.str_replace(strtolower(self::$BASE), '', strtolower($url));
-            $match = false;
             $newPath = explode('/', rtrim(self::$REQ_ROUTE, '/'));
             $newPath = array_splice($newPath, 1, count($newPath)-1);
-            foreach($routes as $routeIdx => $route)
+            $routePath = [];
+            foreach(self::$Routes as $routeIdx => $route) 
             {
-                self::$params = [];
-                $pathCount = count(explode('/', $route['path'])) - 1;
-                $path = null;
-                for($pCnt = 0; $pCnt < $pathCount; $pCnt++)
-                {
-                    if(isset($newPath[$pCnt]))
+                $pathCount = count(explode('/', $route['path'])) -1;
+                $params = [];
+                $path = NULL;
+                for($pCnt = 0; $pCnt < $pathCount; $pCnt++){
+                    if(isset($newPath[$pCnt])) 
                     {
                         $path .= '/'.$newPath[$pCnt];
                     }
                 }
+                
                 if(strtolower($route['path']) === strtolower($path))
                 {
+                    $routeExplode = explode('/', $route['path']);
+                    $routePath[] = array_splice($routeExplode, 1, count($routeExplode)-1);
+                }
+            }
+
+            $counter = max($routePath);
+            $routingPath = NULL;
+
+            for($x = 0; $x < sizeof($counter); $x++) 
+            {
+                $routingPath .= '/'.$counter[$x];
+            }
+
+            foreach(self::$Routes as $routeIndex => $singleRoute) 
+            {
+                if(strtolower($routingPath) === strtolower($singleRoute['path'])) 
+                {
+                    self::$RouteIndex = $routeIndex;
                     $match = true;
-                    //echo '<pre>',var_dump($route),'</pre>';
-                    self::$RouteIndex = $routeIdx;
-                    $URLparams = array_slice($newPath, $pCnt, count($newPath));
-                    if(array_key_exists('params', $route) && sizeof($route['params']) > 0)
+                    $URLparams = array_slice($newPath, $x, count($newPath));
+                    if(array_key_exists('params', $singleRoute) && sizeof($singleRoute['params']) > 0)
                     {
                         for($ParamCnt = 0; $ParamCnt < count($URLparams); $ParamCnt++)
                         {
-                            if(isset($route['params'][$ParamCnt]))
+                            if(isset($singleRoute['params'][$ParamCnt]))
                             {
-                                self::$params[$route['params'][$ParamCnt]] = $URLparams[$ParamCnt];
+                                self::$params[$singleRoute['params'][$ParamCnt]] = $URLparams[$ParamCnt];
                             }
                             else
                             {
@@ -92,18 +109,8 @@ class Router extends Core
                     {
                         self::$params = $URLparams;
                     }
-                    
                 }
-                
             }
-            /* echo '<p>New Path: ',var_dump($newPath), 
-                ' | <br>Param count: ',
-                    var_dump($pathCount),
-                ' |<br> Path match: ',
-                    var_dump(self::$REQ_ROUTE),
-                '<br> | Params: ',
-                    var_dump(self::$params)
-                ,'</p>'; */
 
             if($match)
             {

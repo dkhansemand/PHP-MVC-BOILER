@@ -7,13 +7,6 @@ const ROUTES = array(
                         'controller' => 'Home',
                         'view' => 'Home.view.php'
                     ],
-                    [
-                        'path' => '/Test',
-                        'controller' => 'Test',
-                        'params' => ['Now', 'More'],
-                        'view' => 'home.view.php',
-                        'permissions' => []
-                    ],
                     
                     [
                         'path' => '/Test/Tester',
@@ -21,7 +14,7 @@ const ROUTES = array(
                         'params' => ['ID', 'More'],
                         'view' => 'Test.view.php',
                         'permissions' => [
-                                            Permission::PERM_ADMIN_UPDATE_USER
+                                            
                                          ]
                     ],
                     [
@@ -30,8 +23,16 @@ const ROUTES = array(
                         'params' => ['ID', 'More'],
                         'view' => 'login.view.php',
                         'permissions' => [
-                                            Permission::PERM_ADMIN_PANEL_ACCESS
+                                            
                                          ]
+                    ]
+                    ,
+                    [
+                        'path' => '/Test',
+                        'controller' => 'Test',
+                        'params' => ['Now', 'More'],
+                        'view' => 'home.view.php',
+                        'permissions' => []
                     ],
                     [
                         'path' => '/Login',
