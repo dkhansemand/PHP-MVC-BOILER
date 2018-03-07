@@ -5,7 +5,6 @@ class Router extends Core
     private static  $BASE = null,
                     $params = [],
                     $RouteIndex = null,
-                    $RouteIndexes = null,
                     $Routes = null,
                     $controller = null,
                     $view = null,
