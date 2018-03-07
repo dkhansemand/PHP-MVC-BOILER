@@ -58,6 +58,7 @@ class Router extends Core
             $newPath = array_splice($newPath, 1, count($newPath)-1);
             foreach($routes as $routeIdx => $route)
             {
+                self::$params = [];
                 $pathCount = count(explode('/', $route['path'])) - 1;
                 $path = null;
                 for($pCnt = 0; $pCnt < $pathCount; $pCnt++)
