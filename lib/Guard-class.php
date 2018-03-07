@@ -16,7 +16,6 @@ class Guard extends JWT
             "exp" => strtotime("+1 hour"),
             "data" => $userData
         );
-        //$this->userSession = JWT::encode($payload, _JWTKEY_);
         $_SESSION['global'] = JWT::encode($payload, _JWTKEY_);
         
     }
@@ -54,12 +53,11 @@ class Guard extends JWT
             $UserPermissions = User::GetUserPermissions( self::decoding($_SESSION['global'])->data->userId );
             foreach($UserPermissions as $userPerm)
             {   
-                if(in_array($userPerm->roleTypeInt, self::$Permissions)){
-                   // return true;
+                if(in_array($userPerm->roleTypeInt, self::$Permissions))
+                {
                     $permCnt++;
                 }
             }
-            //echo '<br>Permission<pre>', var_dump(self::$Permissions), var_dump($permCnt), '</pre><br/>';
             if( $permCnt !== sizeof(self::$Permissions) )
             {
                 Router::Redirect('/Error/403');
