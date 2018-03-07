@@ -4,13 +4,13 @@ const DEFAULT_ROUTE = '/Home';
 const ROUTES = array(
                     [
                         'path' => '/Home',
-                        'controller' => 'Home',
+                        'controller' => 'HomeController',
                         'view' => 'Home.view.php'
                     ],
                     
                     [
                         'path' => '/Test/Tester',
-                        'controller' => 'Test',
+                        'controller' => 'TestController',
                         'params' => ['ID', 'More'],
                         'view' => 'Test.view.php',
                         'permissions' => [
@@ -19,7 +19,7 @@ const ROUTES = array(
                     ],
                     [
                         'path' => '/Test/Login',
-                        'controller' => 'Test',
+                        'controller' => 'TestController',
                         'params' => ['ID', 'More'],
                         'view' => 'login.view.php',
                         'permissions' => [
@@ -29,7 +29,7 @@ const ROUTES = array(
                     ,
                     [
                         'path' => '/Test',
-                        'controller' => 'Test',
+                        'controller' => 'TestController',
                         'params' => ['Now', 'More'],
                         'view' => 'home.view.php',
                         'permissions' => []
@@ -37,7 +37,7 @@ const ROUTES = array(
                     [
                         'path' => '/Login',
                         'view' => 'login.view.php',
-                        'controller' => 'Login'
+                        'controller' => 'LoginController'
                     ],
                     [
                         'path' => '/Error',

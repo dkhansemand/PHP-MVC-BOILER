@@ -10,16 +10,16 @@ abstract class Core
     {
         $controller = ucfirst($controller);
         $controllerName = str_replace('\\', '/', $controller);
-		if(file_exists( __ROOT__ . DS  . 'controllers' . DS . $controllerName . '.Controller.php')){
-            require_once __ROOT__  . DS . 'controllers'. DS . $controllerName . '.Controller.php';
-            if(class_exists($controller.'Controller'))
+        $file = str_replace('Controller', '', $controller);
+		if(file_exists( __ROOT__ . DS  . 'controllers' . DS . $file . '.Controller.php')){
+            require_once __ROOT__  . DS . 'controllers'. DS . $file . '.Controller.php';
+            if(class_exists($controller))
             {
-                $controllerName = $controller.'Controller';
                 self::$Controller = new $controllerName();
                 return (self::$Controller instanceof $controllerName);
             }
 		} else {
-            throw new Exception('ERROR: '. __ROOT__ . DS . 'controllers' . DS .  $controllerName . '.Controller.php');
+            throw new Exception('ERROR: '. __ROOT__ . DS . 'controllers' . DS .  $file . '.Controller.php');
             return false;
         }
     }

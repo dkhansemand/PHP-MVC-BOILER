@@ -41,7 +41,7 @@ class Guard extends JWT
         try
         {
             self::$Permissions = &$permissions;
-            if(!isset($_SESSION['global']))
+            if(!isset($_SESSION['global']) && is_null($_SESSION['global']))
             {
                 Router::Redirect('/Login');
                 return false;

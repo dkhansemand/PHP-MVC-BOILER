@@ -49,7 +49,7 @@ class Router extends Core
     {
         if(self::ValidateRoutes($routes, ['path', 'view']))
         {
-            self::$Routes = $routes;
+            self::$Routes = &$routes;
             $url = Filter::SanitizeURL($url);
             self::$BASE = substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], "index.php"));
             self::$REQ_ROUTE = '/'.str_replace(strtolower(self::$BASE), '', strtolower($url));
@@ -77,7 +77,7 @@ class Router extends Core
 
             $counter = max($routePath);
             $routingPath = NULL;
-
+            
             for($x = 0; $x < sizeof($counter); $x++) 
             {
                 $routingPath .= '/'.$counter[$x];
