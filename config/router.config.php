@@ -14,7 +14,7 @@ const ROUTES = array(
                         'params' => ['ID', 'More'],
                         'view' => 'Test.view.php',
                         'permissions' => [
-                                            
+                                            Permission::PERM_ADMIN_DELETE_USER
                                          ]
                     ],
                     [

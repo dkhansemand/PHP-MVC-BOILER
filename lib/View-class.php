@@ -26,4 +26,6 @@ class View extends Core
     {
         return self::$Controller;
     }
+
+   
 }

@@ -8,6 +8,7 @@ abstract class Database extends PDO implements Log{
 
     protected $conn;
     private $connected = false;
+    private $query = null;
 
     public function logError($errCode, $errLogBy, $errMsg){
         !defined('DS') ? define('DS', DIRECTORY_SEPARATOR) : null;
@@ -49,9 +50,10 @@ abstract class Database extends PDO implements Log{
             $pdoOptions = array(
                 PDO::ATTR_TIMEOUT => 10,
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
+                PDO::ATTR_PERSISTENT => false
             );
-            $this->conn = parent::__construct("mysql:host="._DB_HOST_.";dbname="._DB_NAME_.";charset=utf8", _DB_USERNAME_, _DB_PASSWORD_, $pdoOptions);
+            $this->conn = new PDO("mysql: host="._DB_HOST_.";dbname="._DB_NAME_.";charset=utf8", _DB_USERNAME_, _DB_PASSWORD_, $pdoOptions);
             $this->connected = true;
         }
         catch(PDOException $err)
@@ -66,13 +68,13 @@ abstract class Database extends PDO implements Log{
     }
 
     public function query($query, $params = false){
-        $query = $this->prepare($query);
+        $this->query = $this->conn->prepare($query);
         if($params){
-            $query->execute($params);
+            $this->query->execute($params);
         } else {
-            $query->execute();
+            $this->query->execute();
         }
-        return $query;
+        return $this->query;
     }
 
     public function checkConnection(){
@@ -80,12 +82,12 @@ abstract class Database extends PDO implements Log{
     }
 
     public function close(){
-        unset($this->conn);
+        unset($this->conn, $this->query);
     }
 
 
     public function __deconstruct()
     {
-        unset($this->conn);
+        unset($this->conn, $this->query);
     }
 }

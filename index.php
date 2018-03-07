@@ -19,7 +19,7 @@
        // echo Permission::UpdateToDB() ? '<br>Permissions have been synced with DB!' : 'DB is already synced!';
     
        // var_dump(User::GetUserPermissions(2));
-       var_dump($_SESSION);
+       //var_dump($_SESSION);
        ?>
    </pre>
    <?php  
