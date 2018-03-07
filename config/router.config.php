@@ -30,12 +30,13 @@ const ROUTES = array(
                         'params' => ['ID', 'More'],
                         'view' => 'login.view.php',
                         'permissions' => [
-                                            Permission::PERM_ADMIN_UPDATE_USER
+                                            Permission::PERM_ADMIN_PANEL_ACCESS
                                          ]
                     ],
                     [
                         'path' => '/Login',
-                        'view' => 'login.view.php'
+                        'view' => 'login.view.php',
+                        'controller' => 'Login'
                     ],
                     [
                         'path' => '/Error',

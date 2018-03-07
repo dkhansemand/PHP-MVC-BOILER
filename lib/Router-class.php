@@ -63,7 +63,10 @@ class Router extends Core
                 $path = null;
                 for($pCnt = 0; $pCnt < $pathCount; $pCnt++)
                 {
-                    $path .= '/'.$newPath[$pCnt];
+                    if(isset($newPath[$pCnt]))
+                    {
+                        $path .= '/'.$newPath[$pCnt];
+                    }
                 }
                 if(strtolower($route['path']) === strtolower($path))
                 {
@@ -93,14 +96,14 @@ class Router extends Core
                 }
                 
             }
-            echo '<p>New Path: ',var_dump($newPath), 
+            /* echo '<p>New Path: ',var_dump($newPath), 
                 ' | <br>Param count: ',
                     var_dump($pathCount),
                 ' |<br> Path match: ',
                     var_dump(self::$REQ_ROUTE),
                 '<br> | Params: ',
                     var_dump(self::$params)
-                ,'</p>';
+                ,'</p>'; */
 
             if($match)
             {

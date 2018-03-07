@@ -17,19 +17,13 @@
       
        <?php
        // echo Permission::UpdateToDB() ? '<br>Permissions have been synced with DB!' : 'DB is already synced!';
-        echo '<br><br>';
-        $userData = new stdClass();
-        $userData->uid = 2;
-        $userData->fullname = '$userInfo->fullname';
-        $userData->username = 'admin';
-        $userData->email = '$userInfo->userEmail';
-        //(new Guard)->Authenticate($userData);
+    
        // var_dump(User::GetUserPermissions(2));
        var_dump($_SESSION);
-
-       View::Render();
        ?>
    </pre>
-   
+   <?php  
+        require_once View::Render();
+    ?>
 </body>
 </html>

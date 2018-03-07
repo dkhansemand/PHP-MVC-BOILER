@@ -9,7 +9,7 @@ class View extends Core
         return self::$DATA;
     }
 
-    public static function Render() : void
+    public static function Render() : string
     {
         $model = str_replace('.view.php', '', self::$View);
         if(self::CanLoadModel($model)){
@@ -19,7 +19,11 @@ class View extends Core
             self::$DATA = call_user_func([self::$Model, '__construct']);
         }
         
-        require_once __ROOT__ . DS . 'views' . DS . self::$View;
+        return __ROOT__ . DS . 'views' . DS . self::$View;
     }
 
+    public static function UseController()
+    {
+        return self::$Controller;
+    }
 }

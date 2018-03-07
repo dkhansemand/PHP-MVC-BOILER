@@ -9,7 +9,7 @@ class Guard extends JWT
         
         $payload = array(
             "iss" => "Modul test",
-            "aud" => $userData->uid,
+            "aud" => $userData->userId,
             "exp" => strtotime("+2 hour"),
             "iat" => time(), // Time stamp
             "nbf" => time(), // Time Stamp          
@@ -51,7 +51,7 @@ class Guard extends JWT
                 return true;
             }
             $permCnt = 0;
-            $UserPermissions = User::GetUserPermissions( self::decoding($_SESSION['global'])->data->uid );
+            $UserPermissions = User::GetUserPermissions( self::decoding($_SESSION['global'])->data->userId );
             foreach($UserPermissions as $userPerm)
             {   
                 if(in_array($userPerm->roleTypeInt, self::$Permissions)){
@@ -59,7 +59,7 @@ class Guard extends JWT
                     $permCnt++;
                 }
             }
-            echo '<br>Permission<pre>', var_dump(self::$Permissions), var_dump($permCnt), '</pre><br/>';
+            //echo '<br>Permission<pre>', var_dump(self::$Permissions), var_dump($permCnt), '</pre><br/>';
             if( $permCnt !== sizeof(self::$Permissions) )
             {
                 Router::Redirect('/Error/403');
