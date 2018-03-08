@@ -45,12 +45,15 @@ class Guard extends JWT
                 Router::Redirect('/Login');
                 return false;
             }
+            
             if(sizeof(self::$Permissions) === 0)
             {
                 return true;
             }
+
             $permCnt = 0;
             $UserPermissions = User::GetUserPermissions( self::decoding($_SESSION['global'])->data->userId );
+
             foreach($UserPermissions as $userPerm)
             {   
                 if(in_array($userPerm->roleTypeInt, self::$Permissions))
@@ -58,6 +61,7 @@ class Guard extends JWT
                     $permCnt++;
                 }
             }
+
             if( $permCnt !== sizeof(self::$Permissions) )
             {
                 Router::Redirect('/Error/403');
@@ -66,6 +70,7 @@ class Guard extends JWT
         catch(Exception $err)
         {
             session_destroy();
+            Router::Redirect('/');
             exit;
         }
     }
@@ -79,6 +84,7 @@ class Guard extends JWT
         catch(Exception $err)
         {
             unset($_SESSION['global']);
+            Router::Redirect('/');
         }
     }
 
