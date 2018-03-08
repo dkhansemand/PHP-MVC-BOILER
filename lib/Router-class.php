@@ -4,11 +4,13 @@ class Router extends Core
 {
    
     private static  $BASE = null,
+                    $DefaultRoute  = null,
                     $params = [],
                     $RouteIndex = null,
                     $Routes = null,
                     $controller = null,
                     $view = null,
+                    $ViewFolder = null,
                     $REQ_ROUTE = null;
 
     public static function ValidateRoutes(array $routes, array $keys) : bool
@@ -22,6 +24,21 @@ class Router extends Core
             }
         }
         return ( $errors === 0 );
+    }
+
+    public static function SetViewFoler(string $viewfolder) : void
+    {
+        self::$ViewFolder = $viewfolder;
+    }
+
+    public static function GetViewFolder() : string
+    {
+        return self::$ViewFolder;
+    }
+
+    public static function SetDefaultRoute(string $route) : void
+    {
+        self::$DefaultRoute = $route;
     }
 
     public static function GetParamByName(string $param) : string
@@ -57,6 +74,7 @@ class Router extends Core
             $newPath = explode('/', rtrim(self::$REQ_ROUTE, '/'));
             $newPath = array_splice($newPath, 1, count($newPath)-1);
             $routePath = [];
+            $match = false;
             foreach(self::$Routes as $routeIdx => $route) 
             {
                 $pathCount = count(explode('/', $route['path'])) -1;
@@ -73,10 +91,7 @@ class Router extends Core
                 {
                     $routeExplode = explode('/', $route['path']);
                     $routePath[] = array_splice($routeExplode, 1, count($routeExplode)-1);
-                }
-            }
-
-            $counter = max($routePath);
+                    $counter = max($routePath);
             $routingPath = NULL;
             
             for($x = 0; $x < sizeof($counter); $x++) 
@@ -111,6 +126,9 @@ class Router extends Core
                     }
                 }
             }
+                }
+            }
+                       
 
             if($match)
             {
@@ -124,9 +142,9 @@ class Router extends Core
 
                 if(array_key_exists('view', self::$Routes[self::$RouteIndex]))
                 {
-                    if(!self::CanLoadView(self::$Routes[self::$RouteIndex]['view']))
+                    if(!self::CanLoadView(self::$ViewFolder , self::$Routes[self::$RouteIndex]['view']))
                     {
-                        throw new Exception("Cannot load view '".self::$Routes[self::$RouteIndex]['controller']."'");
+                        throw new Exception("Cannot load view '". self::$ViewFolder . self::$Routes[self::$RouteIndex]['view']."'");
                     }
                 }
 
@@ -137,18 +155,18 @@ class Router extends Core
             }
             else
             {
-                if(defined('DEFAULT_ROUTE') && self::$REQ_ROUTE === '/')
+                if(!empty(self::$DefaultRoute) && self::$REQ_ROUTE === '/')
                 {
                     foreach(self::$Routes as $route)
                     {
-                        if(DEFAULT_ROUTE === $route['path'])
+                        if(self::$DefaultRoute === $route['path'])
                         {
                             self::Redirect($route['path']);
                         }
                     }
                 }
 
-                if(file_exists(__ROOT__ . DS . 'views' . DS .'ErrorPages' . DS . '404.view.php'))
+                if(file_exists(self::$ViewFolder .'ErrorPages' . DS . '404.view.php'))
                 {
                    self::Redirect('/Error/404');
                 }
@@ -163,9 +181,9 @@ class Router extends Core
             {
                 echo 'BASE: <pre>',var_dump(self::$BASE), '</pre>';
                 echo 'REQ_ROUTE<pre>',var_dump(self::$REQ_ROUTE), '</pre>';
-                echo 'Routes: <pre>',var_dump($routes), '</pre>';
+                echo 'Routes: <pre>',var_dump(self::$DefaultRoute), '</pre>';
                 echo 'Controller: <pre>',var_dump(self::$Controller), '</pre>';
-                echo 'View: <pre>',var_dump(self::$View), '</pre>';
+                echo 'View: <pre>',var_dump(self::$ViewFolder . self::$View), '</pre>';
             }
         }
         else

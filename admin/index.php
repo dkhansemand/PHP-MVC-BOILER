@@ -1,8 +1,8 @@
 <?php
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'init.php';
-    
+    require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'init.php';
+    require_once __DIR__ . DS . 'admin.routes.php';
     //ROUTES is served from router.config file
-    Router::Init($_SERVER['REQUEST_URI'], ROUTES);
+    Router::Init($_SERVER['REQUEST_URI'], ADMIN_ROUTES);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
+<h1>ADMIN</h1>
    <?php  
         require_once View::Render();
     

@@ -19,7 +19,7 @@ class View extends Core
             self::$DATA = call_user_func([self::$Model, '__construct']);
         }
         
-        return __ROOT__ . DS . 'views' . DS . self::$View;
+        return Router::GetViewFolder() . self::$View;
     }
 
     public static function UseController()

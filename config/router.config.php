@@ -1,6 +1,6 @@
 <?php
-
-const DEFAULT_ROUTE = '/Home';
+Router::SetViewFoler(__ROOT__ . DS . 'views' . DS);
+Router::SetDefaultRoute('/Home');
 const ROUTES = array(
                     [
                         'path' => '/Home',

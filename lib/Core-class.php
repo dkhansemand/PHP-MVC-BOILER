@@ -24,13 +24,13 @@ abstract class Core
         }
     }
 
-    public static function CanLoadView(string $view) : bool
+    public static function CanLoadView(string $folder, string $view) : bool
     {
-        if(file_exists( __ROOT__ . DS  . 'views' . DS . $view)){
+        if(file_exists( $folder. $view)){
             self::$View = $view;
             return true;
 		} else {
-            throw new Exception('ERROR: '. __ROOT__ . DS . 'views' . DS .  $view);
+            throw new Exception('ERROR: '. $folder .  $view);
             return false;
         }
         return false;

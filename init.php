@@ -30,7 +30,4 @@
     {
         require_once $configFile;
     }
-
-    //ROUTES is served from router.config file
-    Router::Init($_SERVER['REQUEST_URI'], ROUTES);
     
