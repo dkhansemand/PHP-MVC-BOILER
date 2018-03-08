@@ -5,3 +5,4 @@
     
 ?>
 </pre>
+<a href="<?=Router::Link('/Test')?>">Test</a>

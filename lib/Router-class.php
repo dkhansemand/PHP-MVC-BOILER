@@ -2,6 +2,7 @@
 
 class Router extends Core
 {
+   
     private static  $BASE = null,
                     $params = [],
                     $RouteIndex = null,
@@ -173,4 +174,8 @@ class Router extends Core
         }
     }
 
+    public static function Link(string $link) : string
+    {
+        return self::$BASE . trim($link, '/');
+    }
 }
