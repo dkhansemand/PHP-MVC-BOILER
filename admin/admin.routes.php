@@ -1,13 +1,15 @@
 <?php
-Router::SetViewFoler(__DIR__ . DS . 'views' . DS);
+//Router::SetViewFoler(__DIR__ . DS . 'views' . DS);
 Router::SetDefaultRoute('/Dashboard');
 const ADMIN_ROUTES = array(
                     [
                         'path' => '/Dashboard',
-                        'view' => 'dashboard.view.php',
-                        'permissions' => [
-                            Permission::PERM_ADMIN_PANEL_ACCESS
-                        ]
+                        'view' => 'admin'.DS.'dashboard.view.php',
+                        'controller' => 'AdminController'
+                    ],
+                    [
+                        'path' => '/test',
+                        'view' => 'test.view.php'
                     ],
                     [
                         'path' => '/Error',
