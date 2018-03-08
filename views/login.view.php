@@ -3,7 +3,7 @@
     if(isset($POST))
     {
         //var_dump(View::UseController()->VerifyLogin($POST));
-        if(View::UseController()->VerifyLogin($POST)){
+        if(View::UseController()->VerifyLogin($POST, $POST['_once_default'])){
             Router::Redirect('/');
             exit;
         }else{
