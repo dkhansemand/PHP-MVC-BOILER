@@ -13,7 +13,7 @@
     
         if(@__DEBUG__ === true)
         {
-            echo  '<br><h5>Request executed in ' .number_format((microtime(true) - $_SERVER['REQUEST_TIME']), 2) . ' sec.</h5><br>';
+            echo Debug::ExecuteTime();
         }
     ?>
 </body>
