@@ -187,7 +187,8 @@ class Router extends Core
 
                 if(file_exists(self::$ViewFolder .'ErrorPages' . DS . '404.view.php'))
                 {
-                   self::Redirect('/Error/404');
+                    (new FlashMessages)->error('Kunne ikke finde siden "'.self::$REQ_ROUTE.'"', null, true);
+                    self::Redirect('/Error/404');
                 }
                 else
                 {
