@@ -36,12 +36,30 @@ const ROUTES = array(
                     ],
                     [
                         'path' => '/Login',
-                        'view' => 'login.view.php',
+                        'view' => 'Login.view.php',
                         'controller' => 'LoginController'
                     ],
                     [
                         'path' => '/Error',
                         'params' => ['ERROR_ID'],
                         'view' => 'error.view.php'
+                    ],
+                    [
+                        'path' => '/Admin',
+                        'layout' => 'admin',
+                        'view' => 'admin'.DS.'dashboard.view.php',
+                        'controller' => 'AdminController',
+                        'permissions' => [
+                            Permission::PERM_ADMIN_PANEL_ACCESS
+                        ]
+                    ],
+                    [
+                        'path' => '/Admin/Dashboard',
+                        'layout' => 'admin',
+                        'view' => 'admin'.DS.'dashboard.view.php',
+                        'controller' => 'AdminController',
+                        'permissions' => [
+                            Permission::PERM_ADMIN_PANEL_ACCESS
+                        ]
                     ]
                 );

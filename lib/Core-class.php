@@ -3,6 +3,7 @@
 abstract class Core
 {
     protected static $Controller = null,
+                     $Layout     = null,
                      $Model      = null,
                      $View       = null;
     
@@ -26,13 +27,14 @@ abstract class Core
         return false;
     }
 
+
     public static function CanLoadView(string $folder, string $view) : bool
     {
         if(file_exists( $folder. $view)){
             self::$View = $view;
             return true;
 		} else {
-            throw new Exception('ERROR: '. $folder .  $view);
+            throw new Exception('View loading error: '. $folder .  $view);
             return false;
         }
         return false;
@@ -50,7 +52,7 @@ abstract class Core
       }
 
       protected static function get_php_classes($php_code) {
-        $classes = array();
+        //$classes = array();
         $tokens = token_get_all($php_code);
         $count = count($tokens);
         for ($i = 2; $i < $count; $i++) {

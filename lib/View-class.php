@@ -9,6 +9,22 @@ class View extends Core
         return self::$DATA;
     }
 
+    public static function Layout() : string
+    {
+        try
+        {
+            $Layout = &self::$Layout;
+            if(file_exists(Router::GetViewFolder() . $Layout))
+            {
+                return Router::GetViewFolder() . $Layout;
+            }
+        }
+        catch(Exception $err)
+        {
+            throw new Exception("Error in layout rendering! " . $err->getMessage());
+        }
+    }
+
     public static function Render() : string
     {
         try

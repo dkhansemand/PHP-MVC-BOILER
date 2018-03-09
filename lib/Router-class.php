@@ -140,6 +140,25 @@ class Router extends Core
                     }
                 }
 
+                if(array_key_exists('layout', self::$Routes[self::$RouteIndex]))
+                {
+                    try
+                    {
+                        if(file_exists(self::$ViewFolder . self::$Routes[self::$RouteIndex]['layout'] . '.layout.php'))
+                        {
+                            self::$Layout = self::$Routes[self::$RouteIndex]['layout'] . '.layout.php';
+                        }
+                    }
+                    catch(Exception $err)
+                    {
+                        throw new Exception("Cannot load layout '".self::$Routes[self::$RouteIndex]['layout']."'");
+                    }
+                }
+                elseif(file_exists(self::$ViewFolder . 'default.layout.php'))
+                {
+                    self::$Layout = 'default.layout.php';
+                }
+
                 if(array_key_exists('view', self::$Routes[self::$RouteIndex]))
                 {
                     if(!self::CanLoadView(self::$ViewFolder , self::$Routes[self::$RouteIndex]['view']))
