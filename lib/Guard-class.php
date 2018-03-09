@@ -6,7 +6,7 @@ class Guard extends JWT
     private static $Permissions =  [];
     public function Authenticate(stdClass $userData)
     {
-        
+        $userData->IP = $_SERVER['REMOTE_ADDR'];
         $payload = array(
             "iss" => "Modul test",
             "aud" => $userData->userId,
@@ -49,6 +49,12 @@ class Guard extends JWT
             if(sizeof(self::$Permissions) === 0)
             {
                 return true;
+            }
+
+            if(self::decoding($_SESSION['global'])->data->IP !== $_SERVER['REMOTE_ADDR'])
+            {
+                Router::Redirect('/Error/500');
+                exit;
             }
 
             $permCnt = 0;
