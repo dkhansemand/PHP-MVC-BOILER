@@ -2,25 +2,26 @@
 
 class Session{
 
-    public static function set($key, $value){
+    public static function set(string $key, $value) : void
+    {
         $_SESSION[$key] = $value;
     }
 
-    public static function get($key){
-        if ( isset($_SESSION[$key]) ){
+    public static function get(string $key)
+    {
+        if ( isset($_SESSION[$key]) )
+        {
             return $_SESSION[$key];
         }
         return null;
     }
 
-    public static function delete($key){
-        if ( isset($_SESSION[$key]) ){
+    public static function delete(string $key) : void
+    {
+        if ( isset($_SESSION[$key]) )
+        {
             unset($_SESSION[$key]);
         }
-    }
-
-    public static function destroy(){
-        session_destroy();
     }
 
 }
