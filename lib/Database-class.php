@@ -63,6 +63,7 @@ abstract class Database extends PDO implements Log{
                 //echo 'Error logged, check logfile!';
                 throw new Exception('Error logged, check log file on server!');
             }
+            Router::Redirect('/Error/500');
             exit;
         }
     }
