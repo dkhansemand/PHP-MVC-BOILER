@@ -7,7 +7,7 @@
     define('__DEBUG__', false);
     define('__ROOT__', __DIR__);
     define('DS', DIRECTORY_SEPARATOR);
-	define('_JWTKEY_', 'Test');
+	define('_JWTKEY_', 'ac669daa7a8991150cf378b2880f4d6a9f04ebc0be676bd6af4fc476765a8069');
     define('_AUTOLOADER_', __DIR__ . DS . 'vendor' . DS . 'autoload.php');
 
     session_start();
