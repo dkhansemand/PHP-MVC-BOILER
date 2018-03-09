@@ -35,13 +35,14 @@ class Guard extends JWT
         }
     }
 
-    public function Protect(array $permissions)
+    public function Protect(array $permissions, string $redirectURL = '/')
     {
         try
         {
             self::$Permissions = &$permissions;
             if(!isset($_SESSION['global']) && is_null($_SESSION['global']))
             {
+                Session::set('referer', $redirectURL);
                 Router::Redirect('/Login');
                 return false;
             }
@@ -76,7 +77,7 @@ class Guard extends JWT
         catch(Exception $err)
         {
             session_destroy();
-            Router::Redirect('/');
+            Router::Redirect('/Login');
             exit;
         }
     }

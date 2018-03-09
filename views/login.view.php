@@ -4,7 +4,7 @@
     {
         //var_dump(View::UseController()->VerifyLogin($POST));
         if(View::UseController()->VerifyLogin($POST, $POST['_once_default'])){
-            Router::Redirect('/');
+            Router::Redirect(Session::get('referer'));
             exit;
         }else{
             $errorMessage = 'Forkert brugernavn eller password!';

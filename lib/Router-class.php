@@ -2,9 +2,8 @@
 
 class Router extends Core
 {
-   
-    private static  $BASE = null,
-                    $DefaultRoute  = null,
+    public static   $BASE = null;
+    private static  $DefaultRoute  = null,
                     $params = [],
                     $RouteIndex = null,
                     $Routes = null,
@@ -169,7 +168,7 @@ class Router extends Core
 
                 if(array_key_exists('permissions', self::$Routes[self::$RouteIndex]))
                 {
-                    (new Guard)->Protect(self::$Routes[self::$RouteIndex]['permissions']);
+                    (new Guard)->Protect(self::$Routes[self::$RouteIndex]['permissions'], self::$REQ_ROUTE);
                 }
             }
             else
