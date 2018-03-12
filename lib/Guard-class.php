@@ -54,7 +54,8 @@ class Guard extends JWT
 
             if(self::decoding($_SESSION['global'])->data->IP !== $_SERVER['REMOTE_ADDR'])
             {
-                Router::Redirect('/Error/500');
+                unset($_SESSION['global']);
+                Router::Redirect('/');
                 exit;
             }
 
@@ -77,7 +78,7 @@ class Guard extends JWT
         catch(Exception $err)
         {
             session_destroy();
-            Router::Redirect('/Login');
+            Router::Redirect('/Error/500');
             exit;
         }
     }
