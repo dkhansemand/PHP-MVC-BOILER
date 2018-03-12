@@ -91,40 +91,40 @@ class Router extends Core
                     $routeExplode = explode('/', $route['path']);
                     $routePath[] = array_splice($routeExplode, 1, count($routeExplode)-1);
                     $counter = max($routePath);
-            $routingPath = NULL;
-            
-            for($x = 0; $x < sizeof($counter); $x++) 
-            {
-                $routingPath .= '/'.$counter[$x];
-            }
-
-            foreach(self::$Routes as $routeIndex => $singleRoute) 
-            {
-                if(strtolower($routingPath) === strtolower($singleRoute['path'])) 
-                {
-                    self::$RouteIndex = $routeIndex;
-                    $match = true;
-                    $URLparams = array_slice($newPath, $x, count($newPath));
-                    if(array_key_exists('params', $singleRoute) && sizeof($singleRoute['params']) > 0)
+                    $routingPath = NULL;
+                    
+                    for($x = 0; $x < sizeof($counter); $x++) 
                     {
-                        for($ParamCnt = 0; $ParamCnt < count($URLparams); $ParamCnt++)
+                        $routingPath .= '/'.$counter[$x];
+                    }
+
+                    foreach(self::$Routes as $routeIndex => $singleRoute) 
+                    {
+                        if(strtolower($routingPath) === strtolower($singleRoute['path'])) 
                         {
-                            if(isset($singleRoute['params'][$ParamCnt]))
+                            self::$RouteIndex = $routeIndex;
+                            $match = true;
+                            $URLparams = array_slice($newPath, $x, count($newPath));
+                            if(array_key_exists('params', $singleRoute) && sizeof($singleRoute['params']) > 0)
                             {
-                                self::$params[$singleRoute['params'][$ParamCnt]] = $URLparams[$ParamCnt];
+                                for($ParamCnt = 0; $ParamCnt < count($URLparams); $ParamCnt++)
+                                {
+                                    if(isset($singleRoute['params'][$ParamCnt]))
+                                    {
+                                        self::$params[$singleRoute['params'][$ParamCnt]] = $URLparams[$ParamCnt];
+                                    }
+                                    else
+                                    {
+                                        self::$params[] = $URLparams[$ParamCnt];
+                                    }
+                                }
                             }
                             else
                             {
-                                self::$params[] = $URLparams[$ParamCnt];
+                                self::$params = $URLparams;
                             }
                         }
                     }
-                    else
-                    {
-                        self::$params = $URLparams;
-                    }
-                }
-            }
                 }
             }
                        

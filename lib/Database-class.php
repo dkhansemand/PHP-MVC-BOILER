@@ -10,25 +10,34 @@ abstract class Database extends PDO implements Log{
     private $connected = false;
     private $query = null;
 
-    public function logError($errCode, $errLogBy, $errMsg){
+    public function logError($errCode, $errLogBy, $errMsg)
+    {
         !defined('DS') ? define('DS', DIRECTORY_SEPARATOR) : null;
         !defined('_LOG_PATH_') ? define('_LOG_PATH_', dirname(__DIR__) . DS .'log') : null;
-        if(!file_exists(_LOG_PATH_)){
+        if(!file_exists(_LOG_PATH_))
+        {
             mkdir(_LOG_PATH_);
         }
         $timestamp = date("d-m-Y H:i:s");
         $date = date("d-m-y");
         $logPath = _LOG_PATH_ . DS . 'error_'.$date.'.log';
         $logEntry = '[' . $timestamp . '][' . $errCode . '][' . $errLogBy . '] - ' . $errMsg . PHP_EOL;
-        if(file_exists($logPath)){
+        if(file_exists($logPath))
+        {
             ## Log for the current date exsist, add new log entry.
             file_put_contents($logPath, $logEntry, FILE_APPEND) or die("Not able to write log entry to file");
-        }else{
+        }
+        else
+        {
             ## Log for the current date does not exsist, create it first. Then add new log entry
-            if(fopen($logPath, 'w')){
+            if(fopen($logPath, 'w'))
+            {
                 file_put_contents($logPath, $logEntry, FILE_APPEND) or die("Not able to write log entry to file");
-            }else{ 
-                if(@__DEBUG__ === true){
+            }
+            else
+            { 
+                if(@__DEBUG__ === true)
+                {
                     throw new Exception('Not able to create file ' . $logPath . 'error_'.$date.'.log');
                     //echo 'Not able to create file // ' . $logPath . 'error_'.$date.'.log';
                 }
@@ -44,7 +53,8 @@ abstract class Database extends PDO implements Log{
      * @param string $password
      * @param string $db
      */
-    public function __construct(){
+    public function __construct()
+    {
         try
         {
             $pdoOptions = array(
@@ -59,7 +69,8 @@ abstract class Database extends PDO implements Log{
         catch(PDOException $err)
         {
             self::logError($err->getCode(), 'System\PDO', $err->getMessage());
-            if(@__DEBUG__ === true){
+            if(@__DEBUG__ === true)
+            {
                 //echo 'Error logged, check logfile!';
                 throw new Exception('Error logged, check log file on server!');
             }
@@ -68,21 +79,27 @@ abstract class Database extends PDO implements Log{
         }
     }
 
-    public function query($query, $params = false){
+    public function query($query, $params = false)
+    {
         $this->query = $this->conn->prepare($query);
-        if($params){
+        if($params)
+        {
             $this->query->execute($params);
-        } else {
+        }
+        else 
+        {
             $this->query->execute();
         }
         return $this->query;
     }
 
-    public function checkConnection(){
+    public function checkConnection()
+    {
         return $this->connected;
     }
 
-    public function close(){
+    public function close()
+    {
         unset($this->conn, $this->query);
     }
 
