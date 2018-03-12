@@ -4,6 +4,7 @@ class Router extends Core
 {
     public static   $BASE = null;
     private static  $DefaultRoute  = null,
+                    $currentRoute = null,
                     $params = [],
                     $RouteIndex = null,
                     $Routes = null,
@@ -131,6 +132,7 @@ class Router extends Core
 
             if($match)
             {
+                self::$currentRoute = self::$Routes[self::$RouteIndex]['path'];
                 if(array_key_exists('controller', self::$Routes[self::$RouteIndex]))
                 {
                     if(!self::CanLoadController(self::$Routes[self::$RouteIndex]['controller']))
@@ -215,4 +217,9 @@ class Router extends Core
     {
         return self::$BASE . trim($link, '/');
     }
+
+    public static function IsActive(string $route, string $activeCLass) : string
+    {
+        return strtolower($route) === strtolower(self::$currentRoute) ? $activeCLass : '';
+    } 
 }

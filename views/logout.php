@@ -2,5 +2,5 @@
 session_start();
 session_destroy();
 ob_start();
-header('location: ./Home');
+Router::Redirect('/');
 exit;

@@ -7,7 +7,6 @@ const ROUTES = array(
                         'controller' => 'HomeController',
                         'view' => 'Home.view.php'
                     ],
-                    
                     [
                         'path' => '/Test/Tester',
                         'controller' => 'TestController',
@@ -25,8 +24,7 @@ const ROUTES = array(
                         'permissions' => [
                                             
                                          ]
-                    ]
-                    ,
+                    ],
                     [
                         'path' => '/Test',
                         'controller' => 'TestController',
@@ -38,6 +36,10 @@ const ROUTES = array(
                         'path' => '/Login',
                         'view' => 'Login.view.php',
                         'controller' => 'LoginController'
+                    ],
+                    [
+                        'path' => '/Logout',
+                        'view' => 'logout.php'
                     ],
                     [
                         'path' => '/Error',
